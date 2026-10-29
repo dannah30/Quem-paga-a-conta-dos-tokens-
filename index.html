@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TokenLab | Consumo de IA</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0b0915;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 25px 8%;
+    border-bottom: 1px solid #30244b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #b78aff;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.status {
+    color: #9d8ab9;
+    font-size: 12px;
+}
+
+main {
+    max-width: 1000px;
+    margin: 55px auto;
+    padding: 20px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.hero span {
+    color: #b78aff;
+    letter-spacing: 3px;
+    font-size: 12px;
+}
+
+h1 {
+    font-size: 42px;
+    margin: 18px 0;
+}
+
+.hero p {
+    color: #a69bbd;
+    line-height: 1.7;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #151122;
+    border: 1px solid #35264e;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.card h2 {
+    color: #bd94ff;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #a69bbd;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+textarea {
+    width: 100%;
+    height: 130px;
+    margin-top: 15px;
+    padding: 15px;
+    background: #0b0915;
+    border: 1px solid #493467;
+    border-radius: 10px;
+    color: white;
+    resize: vertical;
+    font-family: Arial;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #8755dc, #b477ff);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px #a56aff55;
+}
+
+.resultado {
+    margin-top: 20px;
+    padding: 15px;
+    background: #0b0915;
+    border-radius: 10px;
+    line-height: 2;
+    display: none;
+}
+
+.numero {
+    color: #bd94ff;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.comparacao {
+    margin-top: 25px;
+    background: #151122;
+    border: 1px solid #493467;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.comparacao h2 {
+    color: #bd94ff;
+    margin-bottom: 20px;
+}
+
+.barra {
+    height: 13px;
+    background: #292038;
+    border-radius: 20px;
+    margin: 10px 0 20px;
+    overflow: hidden;
+}
+
+.progresso {
+    height: 100%;
+    background: linear-gradient(90deg, #8755dc, #d09aff);
+    width: 0%;
+    transition: width 1s;
+}
+
+.conclusao {
+    margin-top: 20px;
+    color: #c9b3ff;
+    line-height: 1.7;
+}
+
+footer {
+    text-align: center;
+    color: #716583;
+    padding: 30px;
+    font-size: 12px;
+}
+
+@media(max-width: 600px) {
+    h1 {
+        font-size: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">✦ TOKENLAB</div>
+    <div class="status">● LABORATÓRIO ONLINE</div>
+</header>
+
+<main>
+
+<section class="hero">
+    <span>INTELIGÊNCIA ARTIFICIAL</span>
+    <h1>Quanto custa conversar com uma IA?</h1>
+    <p>
+        Compare prompts curtos e detalhados e descubra
+        como o tamanho das solicitações influencia
+        o consumo de tokens.
+    </p>
+</section>
+
+<section class="grid">
+
+    <div class="card">
+        <h2>⚡ Teste 01 — Prompt curto</h2>
+        <p>Faça uma solicitação simples para a IA.</p>
+
+        <textarea id="prompt1">Explique o que é inteligência artificial.</textarea>
+
+        <button onclick="executar(1)">
+            EXECUTAR TESTE
+        </button>
+
+        <div class="resultado" id="resultado1"></div>
+    </div>
+
+    <div class="card">
+        <h2>🧠 Teste 02 — Prompt detalhado</h2>
+        <p>Faça uma solicitação com mais detalhes e instruções.</p>
+
+        <textarea id="prompt2">Explique o que é inteligência artificial, como ela funciona, quais são suas principais aplicações na sociedade, apresente exemplos do cotidiano, explique suas vantagens e desvantagens e finalize com uma conclusão simples e educativa.</textarea>
+
+        <button onclick="executar(2)">
+            EXECUTAR TESTE
+        </button>
+
+        <div class="resultado" id="resultado2"></div>
+    </div>
+
+</section>
+
+<section class="comparacao">
+    <h2>📊 Comparação de consumo</h2>
+
+    <p>Prompt curto</p>
+    <div class="barra">
+        <div class="progresso" id="barra1"></div>
+    </div>
+
+    <p>Prompt detalhado</p>
+    <div class="barra">
+        <div class="progresso" id="barra2"></div>
+    </div>
+
+    <div class="conclusao" id="conclusao">
+        Execute os dois testes para visualizar a comparação.
+    </div>
+</section>
+
+</main>
+
+<footer>
+    TOKENLAB © 2026 | PROJETO EDUCATIVO SOBRE INTELIGÊNCIA ARTIFICIAL
+</footer>
+
+<script>
+
+// Simulação educativa de consumo de tokens
+let testes = {
+    1: null,
+    2: null
+};
+
+function contarTokens(texto) {
+    // Estimativa simplificada: não é a contagem
+    // oficial de um modelo de linguagem.
+    return Math.ceil(texto.trim().length / 4);
+}
+
+function executar(numero) {
+    const texto = document.getElementById("prompt" + numero).value;
+
+    if (!texto.trim()) {
+        alert("Digite um prompt antes de executar!");
+        return;
+    }
+
+    const entrada = contarTokens(texto);
+
+    // Simulação de uma resposta da IA
+    const resposta = numero === 1
+        ? "Inteligência artificial é uma tecnologia que permite às máquinas realizar tarefas que normalmente exigiriam inteligência humana."
+        : "A inteligência artificial é uma tecnologia que permite às máquinas realizar tarefas que normalmente exigiriam inteligência humana. Ela funciona utilizando algoritmos e dados para identificar padrões, aprender e produzir resultados. Suas aplicações incluem educação, saúde, transportes, entretenimento e atendimento. Entre as vantagens estão a automação e a produtividade. Entre as desvantagens estão os riscos de privacidade, erros e dependência tecnológica. Portanto, a IA é uma ferramenta importante, mas deve ser utilizada com responsabilidade.";
+
+    const saida = contarTokens(resposta);
+    const total = entrada + saida;
+
+    testes[numero] = {
+        entrada,
+        saida,
+        total
+    };
+
+    const resultado = document.getElementById("resultado" + numero);
+
+    resultado.style.display = "block";
+
+    resultado.innerHTML = `
+        <p>Tokens de entrada: <span class="numero">${entrada}</span></p>
+        <p>Tokens de saída: <span class="numero">${saida}</span></p>
+        <p>Total de tokens: <span class="numero">${total}</span></p>
+        <p style="color:#9d8ab9;font-size:12px">
+            Resposta simulada para fins educativos.
+        </p>
+    `;
+
+    atualizarComparacao();
+}
+
+function atualizarComparacao() {
+    if (!testes[1] || !testes[2]) {
+        return;
+    }
+
+    const t1 = testes[1].total;
+    const t2 = testes[2].total;
+    const maior = Math.max(t1, t2, 1);
+
+    document.getElementById("barra1").style.width =
+        (t1 / maior * 100) + "%";
+
+    document.getElementById("barra2").style.width =
+        (t2 / maior * 100) + "%";
+
+    const diferenca = Math.abs(t1 - t2);
+
+    let texto = "";
+
+    if (t1 === t2) {
+        texto = "Os dois testes consumiram a mesma quantidade estimada de tokens.";
+    } else if (t1 > t2) {
+        texto = "O prompt curto consumiu mais tokens nesta simulação.";
+    } else {
+        texto = "O prompt detalhado consumiu mais tokens nesta simulação.";
+    }
+
+    document.getElementById("conclusao").innerHTML = `
+        <strong>Resultado:</strong> ${texto}<br>
+        Diferença: ${diferenca} tokens.<br><br>
+        <strong>Conclusão:</strong> prompts maiores geralmente utilizam
+        mais tokens de entrada. O tamanho da resposta também influencia
+        o consumo total.
+    `;
+}
+
+</script>
+
+</body>
+</html>
